@@ -20,10 +20,7 @@ public class AddUser extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel10 = new javax.swing.JLabel();
-        jTextField7 = new javax.swing.JTextField();
-        jLabel1 = new javax.swing.JLabel();
-        jScrollPane1 = new javax.swing.JScrollPane();
+        jLabel2 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
         txtName = new javax.swing.JTextField();
@@ -43,23 +40,20 @@ public class AddUser extends javax.swing.JFrame {
         jLabel13 = new javax.swing.JLabel();
         jLabel14 = new javax.swing.JLabel();
         jLabel15 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-
-        jLabel10.setFont(new java.awt.Font("Times New Roman", 1, 16)); // NOI18N
-        jLabel10.setText("Enter Address:");
-
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/pics/3574.jpg"))); // NOI18N
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Add User");
         setMinimumSize(new java.awt.Dimension(345, 475));
-        setResizable(false);
+        setPreferredSize(new java.awt.Dimension(362, 619));
         getContentPane().setLayout(null);
 
-        jScrollPane1.setBackground(new java.awt.Color(255,51,255,100));
-        jScrollPane1.setBorder(null);
-        jScrollPane1.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-        jScrollPane1.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+        jLabel2.setFont(new java.awt.Font("Franklin Gothic Demi Cond", 1, 36)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(51, 51, 51));
+        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/user_9797558.png"))); // NOI18N
+        jLabel2.setText(" ADD USER");
+        getContentPane().add(jLabel2);
+        jLabel2.setBounds(20, 0, 290, 70);
 
         jPanel2.setBackground(new java.awt.Color(255,51,255,0));
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -119,6 +113,11 @@ public class AddUser extends javax.swing.JFrame {
                 btnOkMouseClicked(evt);
             }
         });
+        btnOk.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnOkActionPerformed(evt);
+            }
+        });
         jPanel2.add(btnOk, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 370, 70, 30));
         jPanel2.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 500, -1, -1));
         jPanel2.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 500, 40, 14));
@@ -129,22 +128,16 @@ public class AddUser extends javax.swing.JFrame {
         jLabel15.setText("+63");
         jPanel2.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 320, 30, 30));
 
-        jScrollPane1.setViewportView(jPanel2);
-
-        getContentPane().add(jScrollPane1);
-        jScrollPane1.setBounds(0, 70, 350, 410);
-
-        jLabel2.setFont(new java.awt.Font("Franklin Gothic Demi Cond", 1, 36)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(51, 51, 51));
-        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/user_9797558.png"))); // NOI18N
-        jLabel2.setText(" ADD USER");
-        getContentPane().add(jLabel2);
-        jLabel2.setBounds(20, 0, 290, 70);
+        getContentPane().add(jPanel2);
+        jPanel2.setBounds(10, 100, 326, 514);
 
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnOkMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnOkMouseClicked
+
+    }//GEN-LAST:event_btnOkMouseClicked
 
     private void btnCancelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCancelMouseClicked
         AdminPanel ap = new AdminPanel();
@@ -152,44 +145,13 @@ public class AddUser extends javax.swing.JFrame {
         this.setVisible(false);
     }//GEN-LAST:event_btnCancelMouseClicked
 
-    private void btnOkMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnOkMouseClicked
-        AdminPanel ap = new AdminPanel();
-        dc.Connect();
-    
-        long mob = 0;
-        ResultSet rs = dc.findUsername(txtName.getText(), "userLogin");
-        if(txtName.getText().equals("") || txtPass.getText().equals("") || txtConfPass.getText().equals("") || txtEmail.getText().equals("") || txtAdd.getText().equals("") || txtMobile.getText().equals("")){
-            JOptionPane.showMessageDialog(null, "All fields are mandatory");
-        } else if(rs != null){
-                JOptionPane.showMessageDialog(null, "User alredy exist");
-        } else if(!txtPass.getText().equals(txtConfPass.getText())){
-            JOptionPane.showMessageDialog(null, "Password does not match");
-        } else if(txtName.getText() != ""){
-            try{
-
-            } catch(NumberFormatException ex){
-                JOptionPane.showMessageDialog(null, "Please Do not enter strings in decimal fields");
-                return;
-            }
-            boolean value = isEmailValid(txtEmail.getText());
-            if(!value){
-                JOptionPane.showMessageDialog(null, "Please enter your email according to standards");
-            } else{
-                boolean val = dc.addUser(txtName.getText(), txtPass.getText(), txtEmail.getText(), mob);
-                if (val) {
-                    JOptionPane.showMessageDialog(null, "Error Adding data", "Error", JOptionPane.ERROR_MESSAGE);
-                } else{
-                    JOptionPane.showMessageDialog(null, "Successfully added");
-                    this.setVisible(false);
-                    ap.setVisible(true);
-                } 
-            }
-        } 
-    }//GEN-LAST:event_btnOkMouseClicked
-
     private void txtAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtAddActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtAddActionPerformed
+
+    private void btnOkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOkActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnOkActionPerformed
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -223,8 +185,6 @@ public class AddUser extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCancel;
     private javax.swing.JButton btnOk;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
@@ -237,8 +197,6 @@ public class AddUser extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextField jTextField7;
     private javax.swing.JTextField txtAdd;
     private javax.swing.JTextField txtConfPass;
     private javax.swing.JTextField txtEmail;
