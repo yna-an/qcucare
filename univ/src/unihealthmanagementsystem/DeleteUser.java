@@ -54,6 +54,11 @@ public class DeleteUser extends javax.swing.JFrame {
                 btnDetailsMouseClicked(evt);
             }
         });
+        btnDetails.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDetailsActionPerformed(evt);
+            }
+        });
 
         btnDelete.setBackground(new java.awt.Color(255, 153, 153));
         btnDelete.setText("Delete");
@@ -90,7 +95,7 @@ public class DeleteUser extends javax.swing.JFrame {
                             .addComponent(txtUser, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addComponent(btnDetails, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 48, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(btnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(30, 30, 30))))
         );
@@ -132,21 +137,7 @@ public class DeleteUser extends javax.swing.JFrame {
     }//GEN-LAST:event_btnBackMouseClicked
 
     private void btnDetailsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnDetailsMouseClicked
-        dc.Connect();
-        ResultSet rs = dc.findUsername(txtUser.getText(), "UserLogin");
-        try {
-            if(rs == null){
-                JOptionPane.showMessageDialog(null, "User not found!");
-            }
-            txtDet.setText("ID: \t" + rs.getString(1) + "\nUsername: \t" + rs.getString(2)
-            + "\nPassword: \t" + rs.getString(3) + "\nEmail: \t" + rs.getString(4)
-            + "\nSalary: \t" + rs.getString(7) + "\nAddress: \t" + rs.getString(5)
-            + "\nMobile: \t" + rs.getString(6));
-            btnDelete.enable();
-        } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Exception: \n" + ex, "Error", JOptionPane.ERROR_MESSAGE);
-        } catch (NullPointerException ex) {
-        }
+       
     }//GEN-LAST:event_btnDetailsMouseClicked
 
     private void btnDeleteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnDeleteMouseClicked
@@ -166,6 +157,24 @@ public class DeleteUser extends javax.swing.JFrame {
         } else if(a == 1){
         }
     }//GEN-LAST:event_btnDeleteMouseClicked
+
+    private void btnDetailsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDetailsActionPerformed
+      dc.Connect();
+        ResultSet rs = dc.findUsername(txtUser.getText(), "UserLogin");
+        try {
+            if(rs == null){
+                JOptionPane.showMessageDialog(null, "User not found!");
+            }
+            txtDet.setText("ID: \t" + rs.getString(1) + "\nUsername: \t" + rs.getString(2)
+            + "\nPassword: \t" + rs.getString(3) + "\nEmail: \t" + rs.getString(4)
+            + "\nSalary: \t" + rs.getString(7) + "\nAddress: \t" + rs.getString(5)
+            + "\nMobile: \t" + rs.getString(6));
+            btnDelete.enable();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Exception: \n" + ex, "Error", JOptionPane.ERROR_MESSAGE);
+        } catch (NullPointerException ex) {
+        }
+    }//GEN-LAST:event_btnDetailsActionPerformed
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
